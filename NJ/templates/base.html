@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-HANS" >
+<head>
+<title>年金投资分析系统</title>
+<link rel="stylesheet" type="text/css" href="/static/base.css" />
+<link rel="stylesheet" type="text/css" href="/static/changelists.css" />
+<script src="https://code.jquery.com/jquery.js"></script>
+<!-- 鍖呮嫭鎵�鏈夊凡缂栬瘧鐨勬彃浠� -->
+<script src="https://cdn.bootcss.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 寮曞叆 Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<meta name="robots" content="NONE,NOARCHIVE" />
+<style>
+.pagination{margin: 0; padding: 0; }
+.table{margin: 0; padding: 0; }
+select {margin:0;padding:0;height:20px;border:0;border-radius:0;}
+.navbar{
+margin-bottom: 0px;
+background: #79aec8;
+}
+#header {
+    width: auto;
+    height: 60px;
+    padding: 15px 40px;
+    background: #417690;
+    line-height: 40px;
+    color: #ffc;
+    overflow: hidden;
+}
+#head1{
+position: fixed;
+top:0px;
+padding: 0px 0px;
+width:100%; 
+}
+#pos{
+width:300px; 
+height:114px;
+visibility:hidden;
+}
+#posbottom{
+width:100%;
+height:20px;
+visibility:hidden;
+}
+.pagination{
+width:100%;
+position:fixed;
+bottom:0px;
+background:#ffc;
+}
+#links{
+float:right;
+}
+<!--.fixedtd { position: fixed;!important; color:#069DD5;}
+.fixedtr1 { position: fixed;top:114px;important; }
+.fixedtr2 { position: fixed;top:150px;!important;}
+.fixedtr3 { position: fixed;top:200px;!important;}
+.fixedtr4 { position: fixed;top:250px;!important;}
+.td-empty {!important; display: inline-block; }
+
+-->
+
+</style>
+
+</head>
+<body >
+<!-- Container -->
+<div id="container">
+<div id='pos'></div>
+  <!-- Header -->
+  <div id='head1'>
+  <div id="header">
+    <div id="branding">
+      <h1 id="site-name"><a href="/admin/">年金投资分析系统</a> </h1>
+    </div>
+    <div id="user-tools">欢迎{{ username }} {% ifequal gqcount 0 %} <a></a>{% else %}你有<a style="color:red;">{{gqcount}}</a>个组合即将到期&rsaquo;{% endifequal %} <strong></strong><a href="/">首页</a> / <a href="/admin/password_change/">更改密码</a> / <a href="/admin/logout/">注销</a> </div>
+  </div>
+  <!-- END Header -->
+<!--nav-->
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+      <div>
+        <ul class="nav navbar-nav"><li><a href="/">首页</a></li>
+          <li class="dropdown"> <a href="" class="dropdown-toggle" data-toggle="dropdown"> 数据导入 <b class="caret"></b> </a>
+            <ul class="dropdown-menu">
+              <li><a href="/data_import/">托管行数据导入</a></li>
+            </ul>
+          </li>
+          <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 数据查询 <b class="caret"></b> </a>
+            <ul class="dropdown-menu">
+              <li><a href="/sjcx/?blx=2">归因分析表</a></li>
+              <li><a href="/sjcx/?blx=1">资产情况表</a></li>
+              <li><a href="/sjcx/?blx=3">资产分布表</a></li>
+               <li><a href="/hz/">稳定产品分析表</a></li>
+              <li><a href="/sjcx/?blx=4">日均持仓表</a></li>
+              <li class="divider"></li>
+              <li><a href="/sjcx/?blx=5">收入分析表</a></li>
+			  <li><a href="/sjcx/?blx=6">投资分析表</a></li>
+			  <!--<li><a href="/sjcx/?blx=7">收益率分析表</a></li>-->
+			  
+            </ul>
+          </li>
+		  <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 年金分析 <b class="caret"></b> </a>
+            <ul class="dropdown-menu">
+              <li><a href="/tzfx/">投资分析</a></li>
+              <li><a href="/srfx/">收入分析</a></li>
+			  <li><a href="/sylfx/">收益率分析</a></li>                
+            </ul>
+          </li>
+		   <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 数据维护 <b class="caret"></b> </a>
+            <ul class="dropdown-menu">
+              <li><a href="/admin/" target="_blank">基础数据维护</a></li>                           
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+ </div>
+<!--end nav-->
+  <!-- Content -->
+  {% block content%} {% endblock%} 
+
+</div>
+</body>
+</html>

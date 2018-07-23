@@ -1,0 +1,86 @@
+{% extends 'base.html'%} {% block content %}
+<!-- Content -->
+<div id="content" class="flex">
+  <div >
+  <form method="post" action="/srfx/">日均表结束日期：<select name="rq1" id="rq1">  
+  {%for x in rq %}
+  <option value={{x.0}}>{{x.0}}</option>
+   {% endfor %}
+   </select>
+   <input type="submit" value="保存" />该功能计算各组合不同收入类型的日均持仓、收入、毛利率的汇总情况，确认无误后保存，以后可在【数据查询】功能中查询各期收入分析情况。 
+  </form>
+    <table class="table table-bordered table-hover table-condensed">
+
+      <tr>
+        <th>序号</th>
+        <th>日期</th>
+        <th>组合</th>
+        <th>项目</th>
+        <th>债券逆回购</th>
+        <th>其他货币类</th>
+        <th>流动性小计</th>
+        <th>协议存款</th>
+        <th>国债</th>
+        <th>企业债</th>
+        <th>可转债类</th>
+        <th>另类产品</th>
+        <th>其他固定类</th>
+        <th>固定类小计</th>
+        <th>股票</th>
+        <th>其他权益类</th>
+        
+        <th>权益类小计</th>
+        <th>合计</th>
+     
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+        <td>11</td>
+        <td>12</td>
+        <td>13</td>
+        <td>14</td>
+        <td>15</td>
+        <td>16</td>
+        <td>17</td>
+		<td>18</td>
+
+      </tr>
+	  {%if srfx%}
+	  {% for srfx_temp in srfx%}
+	  <tr>
+	  <td>{{forloop.counter}}</td>
+	 <td>{{srfx_temp.0}}</td>
+<td>{{srfx_temp.1|default:""}}</td>
+<td>{{srfx_temp.2|default:""}}</td>
+<td>{{srfx_temp.3|default:""}}</td>
+<td>{{srfx_temp.4|default:""}}</td>
+<td>{{srfx_temp.5|default:""}}</td>
+<td>{{srfx_temp.6|default:""}}</td>
+<td>{{ srfx_temp.7|default:"" }}</td>
+<td>{{srfx_temp.8|default:""}}</td>
+<td>{{srfx_temp.9|default:""}}</td>
+<td>{{srfx_temp.10|default:""}}</td>
+<td>{{srfx_temp.11|default:""}}</td>
+<td>{{srfx_temp.12|default:""}}</td>
+<td>{{srfx_temp.13|default:""}}</td>
+<td>{{srfx_temp.14|default:""}}</td>
+<td>{{srfx_temp.15|default:""}}</td>
+<td>{{srfx_temp.16|default:""}}</td>
+<td>{{srfx_temp.17|default:""}}</td>
+
+{%endfor%}
+</tr>
+{%endif%}
+    </table>
+  </div>
+</div>
+{% endblock %} 

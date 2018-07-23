@@ -1,0 +1,9 @@
+{% extends 'base.html'%} 
+ 
+{% block content %}
+  <!-- Content -->
+  <div id="content" class="flex">
+    <div><table class="table table-bordered table-hover table-condensed" >{% for x in colnames %}<tr><td>{{x.0}}</td><td>{{x.1}}</td><td>{{x.2}}</td><td>{{x.3}}</td><td>{{x.4}}</td><td>{{x.5}}</td><td>{{x.6}}</td><td>{{x.7}}</td><td>{{x.8}}</td><td>{{x.9}}</td></tr>{% endfor %}</table></div>
+	</div>
+{% endblock %}
+

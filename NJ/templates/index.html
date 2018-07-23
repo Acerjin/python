@@ -1,0 +1,58 @@
+{% extends 'base.html'%} 
+ 
+{% block content %}
+  <!-- Content -->
+  <div id="content" class="flex">
+    <div class="table-responsive ">
+      <table class="table table-bordered table-hover table-condensed">
+        
+		{% if wdcp %}
+		<form action="/" method="post"> <tr>
+		  <th>序号</th>
+          <th>组合</th>
+          <th>品种</th>
+          <th>名称</th>
+          <th>金额（元）</th>
+          <th>组合占比</th>
+          <th>融资主体</th>
+          <th>主体评级</th>
+          <th>债项评级</th>
+          <th>期限</th>
+          <th>收益率</th>
+          <th>配置日期</th>
+          <th>到期日期</th>
+          <th>剩余年限</th>
+          <th>理事会资金</th>
+		  <TH><select id="ifgq" onChange="MM_jumpMenu('parent',this,0)"><option value="2">是否提前到期</option><option value="1">合同到期</option><option value="0">未到期</option></select></TH>
+        </tr> </form>
+        {% for wdcp_temp in wdcp %}
+        <tr >
+			<td>{{wdcp_temp.0}}</td>
+          <td>{{wdcp_temp.1|default:""}}</td>
+          <td>{{wdcp_temp.2|default:""}}</td>
+          <td>{{wdcp_temp.3|default:""}}</td>
+          <td>{{wdcp_temp.4|default:""}}</td>
+          <td>{{wdcp_temp.5|default:""}}%</td>
+          <td>{{wdcp_temp.6|default:""}}</td>
+          <td>{{wdcp_temp.7|default:""}}</td>
+          <td>{{wdcp_temp.8|default:""}}</td>
+          <td>{{wdcp_temp.9|default:""}}</td>
+          <td>{{wdcp_temp.10|default:""}}</td>
+          <td>{{wdcp_temp.11|default:""}}</td>
+          {% ifequal wdcp_temp.15 '1' %}
+          <td style="color:red;">{{wdcp_temp.12|default:""}}</td>
+          {% else %}
+          <td>{{wdcp_temp.12|default:""}}</td>
+          {% endifequal %}
+          <td>{{wdcp_temp.13|default:""}}</td>
+          <td>{{wdcp_temp.14|default:""}}</td>
+		  <td>{{wdcp_temp.17|default:""}}</td>
+      	  </tr>
+        {% endfor %}
+	
+		{% endif %}
+      </table>
+    </div>
+	</div>
+{% endblock %}
+

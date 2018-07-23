@@ -1,0 +1,93 @@
+{% extends 'base.html'%} {% block content %}
+<!-- Content -->
+
+
+<script>
+//方法一
+function submit1(){
+    document.getElementById("bd").action = "";
+    document.getElementById("bd").submit();
+}
+function submit2(){
+	
+	document.getElementById("bd").action = "/sylsave/?kssj="+kssj+"&jzsj="+jzsj+"&zh="+zh;
+	
+    document.getElementById("bd").submit();
+}
+</script>
+<script LANGUAGE="javascript"> 
+<!-- 
+function test() { 
+window.open ("readexcelnew/", "newwindow", "height=100, width=400, toolbar=no,menubar=no, scrollbars=no, resizable=no, location=no, status=no") 
+//写成一行 
+} 
+//--> 
+</script> 
+<div id="content" class="flex">
+  <div >
+<div><form method="POST" id="bd" >
+      
+      开始时间：<input type="date" value='{{kssj1}}' id="kssj" name="kssj" auto/>
+	  截止时间：<input type="date" value='{{jzsj1}}' id="jzsj" name="jzsj" />
+	  组合：<select name="zh" id="zh">
+	  {%for zh in zh%}
+	  <option value={{zh1}}>{{zh1}}</option>
+	  <option value={{zh.0}}>{{zh.0}}</option>
+	  {%endfor%}
+      </select>
+	  <button type="submit" onclick="submit1()"/>
+      查询收益率
+      <button type='submit' onclick='test()' value='测试'>测试
+    </form>
+	</div>
+    
+    <table class="table table-bordered table-hover table-condensed">
+      <tr>
+        <th>序号</th>
+		<th>日期</th>
+        <th>组合名称</th>
+        <th>组合1</th>
+        <th>组合2</th>
+        <th>组合3</th>
+        <th>组合4</th>
+        <th>合计</th>
+        <th>TA金额</th>
+        <th>当日最新</th>
+	 <th>收益率</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+	<td>11</td>
+       
+      </tr>
+      {% if tabd %} {% for z in tabd %}
+      <tr>
+        <td>{{forloop.counter}}</td>
+		<td>{{z.0|default:""}}</td>
+        <td>{{z.1|default:""}}</td>
+        <td>{{z.2|default:""}}</td>
+        <td>{{z.3|default:""}}</td>
+        <td>{{z.4|default:""}}</td>
+        <td>{{z.5|default:""}}</td>
+        <td>{{z.6|default:""}}</td>
+        <td>{{z.7|default:"" }}</td>
+        <td>{{z.8|default:""}}</td>
+	<td>{{z.9|default:""}}</td>
+      </tr>
+      {% endfor%}
+	    {% endif %} 
+    </table>
+  
+    </form>
+  </div>
+</div>
+{% endblock %} 

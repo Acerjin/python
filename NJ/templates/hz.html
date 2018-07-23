@@ -1,0 +1,61 @@
+{% extends 'base.html'%} 
+  <!-- Content -->
+  {% block content %}
+  <div id="content" class="flex">
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover table-condensed">
+       
+		{% if zhhz %}
+		 <tr>
+          <th>组合</th>
+          
+          <th>金额（元）</th>
+         
+          <th>占比</th>
+         
+          <th>理事会资金</th>
+        </tr>
+        {% for hz_temp in zhhz %}
+        <tr >
+          <td>{{hz_temp.0}}</td>
+          <td>{{hz_temp.1}}</td>
+          <td>{{hz_temp.2}}</td>
+          <td>{{hz_temp.3}}</td>
+          
+        </tr>
+		     
+        {% endfor %}
+		{% endif %}
+	
+	
+		
+		{% if pzhz %}
+		<tr>
+          <th>品种</th>
+          
+          <th>金额（元）</th>
+         
+          <th>占比</th>
+         
+          <th>理事会资金</th>
+        </tr>
+        {% for hz_temp in pzhz %}
+        <tr >
+          <td>{{hz_temp.0}}</td>
+          <td>{{hz_temp.1}}</td>
+          <td>{{hz_temp.2}}</td>
+          <td>{{hz_temp.3}}</td>
+          
+        </tr>
+        {% endfor %}
+		{% endif %}
+		</table>
+		
+		
+		</div>
+ 
+   
+    <br class="clear" />
+  </div>
+  {% endblock %}
+

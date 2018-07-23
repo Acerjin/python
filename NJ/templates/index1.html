@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-HANS" >
+<head>
+<title>稳定类产品台账管理</title>
+<link rel="stylesheet" type="text/css" href="static/base.css" />
+<link rel="stylesheet" type="text/css" href="static/changelists.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 引入 Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<meta name="robots" content="NONE,NOARCHIVE" />
+<script src="https://code.jquery.com/jquery.js"></script>
+<!-- 包括所有已编译的插件 -->
+<script src="js/bootstrap.min.js"></script>
+
+</head>
+<body >
+<!-- Container -->
+<div id="container">
+  <!-- Header -->
+  <div id="header">
+    <div id="branding">
+      <h1 id="site-name"><a href="/admin/">年金管理</a> </h1>
+    </div>
+    <div id="user-tools"> {% ifequal gqcount 0 %}&rsaquo; <a></a>{% else %}<a style="color:red;">你有{{gqcount}}个产品即将过期</a>&rsaquo;{%      endifequal %}欢迎， <strong></strong>. <a href="/">查看站点</a> / <a href="/admin/password_change/">修改密码</a> / <a href="/admin/logout/">注销</a> </div>
+  </div>
+  <!-- END Header -->
+  <div class="breadcrumbs"> <a href="">首页</a> &rsaquo; <a href="">稳定类产品台账明细</a>&rsaquo;  <a href="/hz">稳定类产品台账汇总</a>&rsaquo;<a href="/admin">稳定类产品台账管理</a> </div>
+  <!-- Content -->
+  <div id="content" class="flex">
+    <div class="table-responsive ">
+      <table class="table table-bordered table-hover table-condensed">
+        <tr>
+		  <th>序号</th>
+          <th>组合</th>
+          <th>品种</th>
+          <th>名称</th>
+          <th>金额（元）</th>
+          <th>组合占比</th>
+          <th>融资主体</th>
+          <th>主体评级</th>
+          <th>债项评级</th>
+          <th>期限</th>
+          <th>收益率</th>
+          <th>配置日期</th>
+          <th>到期日期</th>
+          <th>剩余年限</th>
+          <th>理事会资金</th>
+        </tr>
+		{% if wdcp %}
+        {% for wdcp_temp in wdcp %}
+        <tr >
+		<td>{{wdcp_temp.0}}</td>
+          <td>{{wdcp_temp.1}}</td>
+          <td>{{wdcp_temp.2}}</td>
+          <td>{{wdcp_temp.3}}</td>
+          <td>{{wdcp_temp.4}}</td>
+          <td>{{wdcp_temp.5}}%</td>
+          <td>{{wdcp_temp.6}}</td>
+          <td>{{wdcp_temp.7}}</td>
+          <td>{{wdcp_temp.8}}</td>
+          <td>{{wdcp_temp.9}}</td>
+          <td>{{wdcp_temp.10}}</td>
+          <td>{{wdcp_temp.11}}</td>
+          {% ifequal wdcp_temp.15 '1' %}
+          <td style="color:red;">{{wdcp_temp.12}}</td>
+          {% else %}
+          <td>{{wdcp_temp.12}}</td>
+          {% endifequal %}
+          <td>{{wdcp_temp.13}}</td>
+          <td>{{wdcp_temp.14}}</td>
+        </tr>
+        {% endfor %}
+		{% endif %}
+      </table>
+    </div>
+    <br class="clear" />
+  </div>
+  <!-- END Content -->
+  <div id="footer"></div>
+</div>
+<!-- END Container -->
+
+</body>
+</html>

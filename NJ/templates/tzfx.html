@@ -1,0 +1,147 @@
+{% extends 'base.html'%} {% block content %}
+<!-- Content -->
+<div id="content" class="flex">
+  <div  style="overflow:;width:100%">
+  <form method="post" action="/save_tzqkfx/">当期日期为：<select name="rq1" id="rq1">  {%for r in rq %}
+  <option value={{r.0}}>{{r.0}}</option>
+  {%endfor%}</select><input type="submit" value="保存" /><h4 style="display:inline; text-align:center; color:#FF0000">注意：上期日期为{{sqrq}}根据上期数据进行计算</h4>
+  </form>
+    <table class="table table-bordered table-hover table-condensed">
+	  <tr>
+	   <th rowspan="2">序号</th>
+	  <th rowspan="2">日期</th>
+        <th rowspan="2" >公司名称</th>
+        <th rowspan="2">本金</th>
+        <th  colspan="7">货币类资产（≥5%）</th>
+        <th  colspan="8">固定类资产(≤135%)</th>
+        <th  colspan="7">权益类资产（≤30%））</th>
+        <th rowspan="2">基金净资产</th>
+        <th rowspan="2">收入合计</th>
+        <th rowspan="2">上年底利润</th>
+        <th rowspan="2">本年利润</th>
+        <th rowspan="2">累计利润</th>
+        <th rowspan="2">上年净值</th>
+        <th rowspan="2">上年净值2</th>
+        <th rowspan="2">上期净值</th>
+        <th rowspan="2">本期净值</th>
+        <th rowspan="2">本期净值变动</th>
+        <th rowspan="2">本年收益率</th>
+        <th rowspan="2">基准1.83%</th>
+        <th rowspan="2">累计排名</th>
+        <th rowspan="2">本年排名</th>
+      </tr>
+      <tr>
+        <th>银行存款</th>
+        <th>债券逆回购</th>
+        <th>其他货币基金</th>
+        <th>货币类小计</th>
+        <th>占净值比例</th>
+        <th>收入</th>
+        <th>比例</th>
+        <th>协议/定期存款/国债</th>
+        <th>23/24号文产品</th>
+        <th>企业债</th>
+        <th>其他固定类</th>
+        <th>固定类小计</th>
+        <th>占净值比例</th>
+        <th>收入</th>
+        <th>比例</th>
+        <th>股票</th>
+        <th>股票基金</th>
+        <th>权益类小计</th>
+        <th>占净值比例</th>
+        <th>股票</th>
+        <th>收入</th>
+        <th>比例</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+        <td>11</td>
+        <td>12</td>
+        <td>13</td>
+        <td>14</td>
+        <td>15</td>
+        <td>16</td>
+        <td>17</td>
+        <td>18</td>
+        <td>19</td>
+        <td>20</td>
+        <td>21</td>
+        <td>22</td>
+        <td>23</td>
+        <td>24</td>
+        <td>25</td>
+        <td>26</td>
+        <td>27</td>
+        <td>28</td>
+        <td>29</td>
+        <td>30</td>
+        <td>31</td>
+        <td>32</td>
+        <td>33</td>
+        <td>34</td>
+        <td>35</td>
+		<td>36</td>
+        <td>37</td>
+        <td>38</td>
+		<td>39</td>
+      </tr>
+	  {%if tzfx%}
+	  {% for tzfx_temp in tzfx%}
+	  <tr>
+	  <td>{{forloop.counter}}</td>
+	 <td>{{tzfx_temp.0}}</td>
+<td>{{tzfx_temp.1|default:""}}</td>
+<td>{{tzfx_temp.2|default:""}}</td>
+<td>{{tzfx_temp.3|default:""}}</td>
+<td>{{tzfx_temp.4|default:""}}</td>
+<td>{{tzfx_temp.5|default:""}}</td>
+<td>{{tzfx_temp.6|default:""}}</td>
+<td>{{ tzfx_temp.7|default:"" }}</td>
+<td>{{tzfx_temp.8|default:""}}</td>
+<td>{{tzfx_temp.9|default:""}}</td>
+<td>{{tzfx_temp.10|default:""}}</td>
+<td>{{tzfx_temp.11|default:""}}</td>
+<td>{{tzfx_temp.12|default:""}}</td>
+<td>{{tzfx_temp.13|default:""}}</td>
+<td>{{tzfx_temp.14|default:""}}</td>
+<td>{{tzfx_temp.15|default:""}}</td>
+<td>{{tzfx_temp.16|default:""}}</td>
+<td>{{tzfx_temp.17|default:""}}</td>
+<td>{{tzfx_temp.18|default:""}}</td>
+<td>{{tzfx_temp.19|default:""}}</td>
+<td>{{tzfx_temp.20|default:""}}</td>
+<td>{{tzfx_temp.21|default:""}}</td>
+<td>{{tzfx_temp.22|default:""}}</td>
+<td>{{tzfx_temp.23|default:""}}</td>
+<td>{{tzfx_temp.24|default:""}}</td>
+<td>{{tzfx_temp.25|default:""}}</td>
+<td>{{tzfx_temp.26|default:""}}</td>
+<td>{{tzfx_temp.27|default:""}}</td>
+<td>{{tzfx_temp.28|default:""}}</td>
+<td>{{tzfx_temp.29|default:""}}</td>
+<td>{{tzfx_temp.30|default:""}}</td>
+<td>{{tzfx_temp.31|default:""}}</td>
+<td>{{tzfx_temp.32|default:""}}</td>
+<td>{{tzfx_temp.33|default:""}}</td>
+<td>{{tzfx_temp.34|default:""}}</td>
+<td>{{tzfx_temp.35|default:""}}</td>
+<td>{{tzfx_temp.36|default:""}}</td>
+<td>{{tzfx_temp.37|default:""}}</td>
+<td>{{tzfx_temp.38|default:""}}</td>
+{%endfor%}
+</tr>
+{%endif%}
+    </table>
+  </div>
+</div>
+{% endblock %} 

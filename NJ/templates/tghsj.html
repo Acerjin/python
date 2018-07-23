@@ -1,0 +1,511 @@
+{% extends 'base.html'%} {% block content %}
+<!-- Content -->
+<script type="text/JavaScript">
+function MM_jumpMenu(targ,selObj,restore,blx){ //v3.0
+  eval(targ+".location='"+'?blx='+blx+'&rq='+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+
+function MM_jumpMenu1(targ,selObj,restore,blx){ //v3.0
+  
+  var rq='';
+  var rq2='';
+  var zh='';
+  rq = document.getElementById('rq').value;
+  //rq1 = document.getElementById("kssj").value;
+  //rq2 = document.getElementById("jzsj").value;
+  zh = document.getElementById("zh").value;
+  eval(targ+".location='"+'?blx='+blx+'&rq='+rq+'&rq1='+'&rq2='+'&zh='+zh+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+</script> 
+<div id="content" class="flex">
+  <div class=" ">
+      {% if blx == '1' %}
+	   <table class="table table-bordered table-hover table-condensed">
+	  <tr align="center"><td colspan=9 style="font-size:20px;">资产情况表</td><td><a id="export_link" href='/export_link/?blx={{blx}}&rq={{rq}}&zh={{zh}}'>导出文件</a></td></tr>
+	  <tr>
+	  <th >序号</th>
+       <TH><select id="rq" onChange="MM_jumpMenu1('parent',this,0,1)"><option>{{rq}}</option><option>ALL</option>{% for x in rqlist%}<option value="{{x.0}}">{{x.0}}</option>{% endfor%}</select></TH>
+        <th>投资组合代码</th>
+        <th><select id="zh" onChange="MM_jumpMenu1('parent',this,0,1)"><option>{{zh}}</option><option>ALL</option>{% for z in zhlist%}<option value="{{z.0}}">{{z.0}}</option>{% endfor%}</select></th>
+        <th>单位净值</th>
+        <th>受托资产净值</th>
+        <th>资产份额</th>
+        <th>委托金额</th>
+        <th>净收益</th>
+        <th>导入日期</th>
+      </tr>
+       <tr>
+	   <td>1</td>
+	   <td>2</td>
+	   <td>3</td>
+	   <td>4</td>
+	   <td>5</td>
+	   <td>6</td>
+	   <td>7</td>
+	   <td>8</td>
+	   <td>9</td>
+	   <td>10</td>
+	   </tr>
+	  <tr>
+      {% if sj %} {% for x in sj %}
+      <tr>
+	  <td>{{forloop.counter|add:trnum}}</td>
+        <td>{{x.0|default:""}}</td>
+        <td>{{x.1|default:""}}</td>
+        <td>{{x.2|default:""}}</td>
+        <td>{{x.3|default:""}}</td>
+        <td>{{x.4|default:""}}</td>
+        <td>{{x.5|default:""}}</td>
+        <td>{{x.6|default:""}}</td>
+        <td>{{x.7|default:""}}</td>
+        <td>{{x.8|default:""}}</td>
+      </tr>
+      {% endfor%} 
+	  {% endif %}
+	  	  
+    </table>
+	{% endif %}
+   
+      {% if blx == '2' %}
+	   <table class="table table-bordered table-hover table-condensed">
+	  <tr  align="center"><td colspan=13 style="font-size:20px;">归因分析表</td><td><a href="/excel/?">导出</a></td></tr>
+	    <tr>
+	   <th>序号</th>
+        <th >开始日期</th>
+        <TH><select id="rq" onChange="MM_jumpMenu('parent',this,0,2)"><option>{{rq}}</option><option>ALL</option>{% for x in rqlist%}<option value="{{x.0}}">{{x.0}}</option>{% endfor%}</select></TH>
+        <th><select id="zh" onChange="MM_jumpMenu1('parent',this,0,2)"><option>{{zh}}</option><option>ALL</option>{% for z in zhlist%}<option value="{{z.0}}">{{z.0}}</option>{% endfor%}</select></th>
+	<th >资产类别</th>
+        <th >资产名称</th>
+        <th >本期累计</th>
+        <th >收益占比</th>
+        <th >本年累计</th>
+        <th >收益占比</th>
+        <th >本期累计</th>
+        <th >本年累计</th>
+        <th >本期累计</th>
+        <th >本年累计</th>        
+      </tr>
+       <tr>
+	   <td>1</td>
+	   <td>2</td>
+	   <td>3</td>
+	   <td>4</td>
+	   <td>5</td>
+	   <td>6</td>
+	   <td>7</td>
+	   <td>8</td>
+	   <td>9</td>
+	   <td>10</td>
+	   <td>11</td>
+	   <td>12</td>
+	   <td>13</td>
+	   <td>14</td>
+	   </tr>
+	  </form>
+	  
+	  
+      {% if sj %} {% for g in sj %}
+      <tr>
+	  <td>{{forloop.counter}}</td>
+        <td>{{g.0|default:""}}</td>
+        <td>{{g.1|default:""}}</td>
+        <td>{{g.2|default:""}}</td>
+        <td>{{g.3|default:""}}</td>
+        <td><div style="width:120px;">{{g.4|default:""}}</div></td>
+        <td>{{g.5|default:""}}</td>
+        <td>{{g.6|default:""}}</td>
+        <td>{{g.7|default:""}}</td>
+        <td>{{g.8|default:""}}</td>
+        <td>{{g.9|default:""}}</td>
+        <td>{{g.10|default:""}}</td>
+        <td>{{g.11|default:""}}</td>
+        <td>{{g.12|default:""}}</td>
+        
+      </tr>
+      {% endfor%} {% endif %}
+	  
+    </table>
+	{% endif %}
+   
+      {% if blx == '3' %}
+	   <table class="table table-bordered table-hover table-condensed">
+	   <tr  align="center"><td colspan=8 style="font-size:20px;">资产分布表</td></tr>
+	  <tr>
+	   <th>序号</th>
+        <th ><select id="rq" onChange="MM_jumpMenu('parent',this,0,3)"><option>{{rq}}</option><option>ALL</option>{% for x in rqlist%}<option value="{{x.0}}">{{x.0}}</option>{% endfor%}</select></th>
+	<th><select id="zh" onChange="MM_jumpMenu1('parent',this,0,3)"><option>{{zh}}</option><option>ALL</option>{% for z in zhlist%}<option value="{{z.0}}">{{z.0}}</option>{% endfor%}</select></th>
+        <th >资产类别</th>
+        <th >资产名称</th>
+        <th >市值</th>
+        <th >占净资产比例（%）</th>
+        <th >导入日期</th>
+      </tr>
+    <tr> 
+      <td>1</td>
+	   <td>2</td>
+	   <td>3</td>
+	   <td>4</td>
+	   <td>5</td>
+	   <td>6</td>
+	   <td>7</td>
+	   <td>8</td>
+	   </TR>
+      {% if sj %} {% for z in sj %}
+      <tr>
+	  <td>{{forloop.counter}}</td>
+        <td>{{z.0|default:""}}</td>
+        <td>{{z.1|default:""}}</td>
+        <td>{{z.2|default:""}}</td>
+        <td>{{z.3|default:""}}</td>
+        <td>{{z.4|default:""}}</td>
+        <td>{{z.5|default:""}}</td>
+        <td>{{z.6|default:""}}</td>
+		<td>{{z.7|default:""}}</td>
+   
+      </tr>
+      {% endfor%} {% endif %}
+	
+    </table>
+	  {% endif %}
+	
+      {% if blx == '4' %}
+	  <table class="table table-bordered table-hover table-condensed">
+	  <tr  align="center"><td colspan=9 style="font-size:20px;">日均持仓表</td></tr>
+	  <tr>
+	   <th>序号</th>
+        <th >开始日期</th>
+		 <th ><select id="rq" onChange="MM_jumpMenu('parent',this,0,4)"><option>{{rq}}</option><option>ALL</option>{% for x in rqlist%}<option value="{{x.0}}">{{x.0}}</option>{% endfor%}</select></th>
+	<th><select id="zh" onChange="MM_jumpMenu1('parent',this,0,4)"><option>{{zh}}</option><option>ALL</option>{% for z in zhlist%}<option value="{{z.0}}">{{z.0}}</option>{% endfor%}</select></th>
+        <th >资产类别</th>
+        <th >资产名称</th>
+        <th >日均持仓成本</th>
+        <th >日均持仓余额</th>
+        <th >导入日期</th>
+      </tr>
+      <tr> 
+      <td>1</td>
+	   <td>2</td>
+	   <td>3</td>
+	   <td>4</td>
+	   <td>5</td>
+	   <td>6</td>
+	   <td>7</td>
+	   <td>8</td>
+	   <td>9</td>
+	   </TR>
+      {% if sj %} {% for z in sj %}
+      <tr>
+	  <td>{{forloop.counter}}</td>
+        <td>{{z.0|default:""}}</td>
+        <td>{{z.1|default:""}}</td>
+        <td>{{z.2|default:""}}</td>
+        <td>{{z.3|default:""}}</td>
+        <td>{{z.4|default:""}}</td>
+        <td>{{z.5|default:""}}</td>
+        <td>{{z.6|default:""}}</td>
+		<td>{{z.7|default:""}}</td>
+   
+      </tr>
+      {% endfor%} {% endif %}
+	 
+    </table>
+	 {% endif %}
+	  {% if blx == '5' %}
+	  <table class="table table-bordered table-hover table-condensed">
+	  <tr  align="center"><td colspan=18 style="font-size:20px;">收入分析表</td></tr>
+	  <tr>
+	   <th>序号</th>
+        <th >日期</th>
+        <th >组合</th>
+		
+        <th >项目</th>
+        <th >债券逆回购</th>
+        <th >其它货币类</th>
+        <th >流动性小计</th>
+        <th >协议存款</th>
+        <th >国债</th>
+        <th >企业债</th>
+        <th >可转债</th>
+        <th >另类产品</th>
+        <th >其它固定类</th>
+        <th >固定类小计</th>
+		<th >股票</th>
+        <th >其它权益类</th>
+        <th >权益类小计</th>
+        <th >合计</th>
+      </tr>
+            <tr>
+	<td>1</td>
+	<td>2</td>
+	<td>3</td>
+	<td>4</td>
+	<td>5</td>
+	<td>6</td>
+	<td>7</td>
+	<td>8</td>
+	<td>9</td>
+	<td>10</td>
+	<td>11</td>
+	<td>12</td>
+	<td>13</td>
+	<td>14</td>
+	<td>15</td>
+	<td>16</td>
+	<td>17</td>
+	<td>18</td>
+	</tr>
+      {% if sj %} {% for z in sj %}
+      <tr>
+	  <td>{{forloop.counter}}</td>
+        <td>{{z.0|default:""}}</td>
+        <td>{{z.1|default:""}}</td>
+        <td>{{z.2|default:""}}</td>
+        <td>{{z.3|default:""}}</td>
+        <td>{{z.4|default:""}}</td>
+        <td>{{z.5|default:""}}</td>
+        <td>{{z.6|default:""}}</td>
+		<td>{{z.7|default:""}}</td>
+		<td>{{z.8|default:""}}</td>
+        <td>{{z.9|default:""}}</td>
+        <td>{{z.10|default:""}}</td>
+        <td>{{z.11|default:""}}</td>
+        <td>{{z.12|default:""}}</td>
+        <td>{{z.13|default:""}}</td>
+        <td>{{z.14|default:""}}</td>
+		<td>{{z.15|default:""}}</td>
+		<td>{{z.16|default:""}}</td>
+        <td>{{z.17|default:""}}</td>
+        
+   
+      </tr>
+      {% endfor%} {% endif %}
+	 
+    </table>
+	 {% endif %}
+	 
+	  {% if blx == '6' %}
+	  <div style="overflow:;width:100%">
+	  <table class="table table-bordered table-hover table-condensed">
+	<tr align="center" class="" ><td colspan=39 style="font-size:20px;">投资分析表</td></tr>
+	  <tr class="">
+		<th rowspan="2" >序号</th>
+	       <th  rowspan='2'><select id="rq" onChange="MM_jumpMenu('parent',this,0,6)"><option>结束日期</option>{% for x in rqlist%}<option value="{{x.0}}">{{x.0}}</option>{% endfor%}</select></th>
+	       <th rowspan="2" ><div style="width:38px;">公司名称</div></th>
+	       <th rowspan="2">本金</th>
+	       <th  colspan="7">货币类资产（≥5%）</th>
+	       <th  colspan="8">固定类资产(≤135%)</th>
+	       <th  colspan="7">权益类资产（≤30%））</th>
+	       <th rowspan="2">基金净资产</th>
+	       <th rowspan="2">收入合计</th>
+	       <th rowspan="2">上年底利润</th>
+	       <th rowspan="2">本年利润</th>
+	       <th rowspan="2">累计利润</th>
+	       <th rowspan="2">上年单位净值</th>
+	       <th rowspan="2">调整单位净值</th>
+	       <th rowspan="2">上期单位净值</th>
+	       <th rowspan="2">本期单位净值</th>
+	       <th rowspan="2">本期净值变动</th>
+	       <th rowspan="2">本年收益率</th>
+	       <th rowspan="2">基准1.83%</th>
+	       <th rowspan="2">累计排名</th>
+	       <th rowspan="2">本年排名</th>
+	</tr>
+	<tr class="">
+	  <th>银行存款</th>
+	  <th>债券逆回购</th>
+	  <th>其他货币基金</th>
+	  <th>货币类小计</th>
+	  <th>占净值比例</th>
+	  <th>收入</th>
+	  <th>比例</th>
+	  <th>协议/定期存款/国债</th>
+	  <th>23/24号文产品</th>
+	  <th>企业债</th>
+	  <th>其他固定类</th>
+	  <th>固定类小计</th>
+	  <th>占净值比例</th>
+	  <th>收入</th>
+	  <th>比例</th>
+	  <th>股票</th>
+	  <th>股票基金</th>
+	  <th>权益类小计</th>
+	  <th>占净值比例</th>
+	  <th>股票</th>
+	  <th>收入</th>
+	  <th>比例</th>
+      </tr>
+      <tr class="">
+        <td >1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+        <td>11</td>
+        <td>12</td>
+        <td>13</td>
+        <td>14</td>
+        <td>15</td>
+        <td>16</td>
+        <td>17</td>
+        <td>18</td>
+        <td>19</td>
+        <td>20</td>
+        <td>21</td>
+        <td>22</td>
+        <td>23</td>
+        <td>24</td>
+        <td>25</td>
+        <td>26</td>
+        <td>27</td>
+        <td>28</td>
+        <td>29</td>
+        <td>30</td>
+        <td>31</td>
+        <td>32</td>
+        <td>33</td>
+        <td>34</td>
+        <td>35</td>
+		<td>36</td>
+        <td>37</td>
+        <td>38</td>
+		<td>39</td>
+      </tr>
+      {% if sj %} {% for z in sj %}
+      <tr>
+	<td>{{forloop.counter}}</td>
+        <td>{{z.0}}</td>
+	<td>{{z.1|default:""}}</td>
+	<td>{{z.2|default:""}}</td>
+	<td>{{z.3|default:""}}</td>
+	<td>{{z.4|default:""}}</td>
+	<td>{{z.5|default:""}}</td>
+	<td>{{z.6|default:""}}</td>
+	<td>{{ z.7|default:""}}</td>
+	<td>{{z.8|default:""}}</td>
+	<td>{{z.9|default:""}}</td>
+	<td>{{z.10|default:""}}</td>
+	<td>{{z.11|default:""}}</td>
+	<td>{{z.12|default:""}}</td>
+	<td>{{z.13|default:""}}</td>
+	<td>{{z.14|default:""}}</td>
+	<td>{{z.15|default:""}}</td>
+	<td>{{z.16|default:""}}</td>
+	<td>{{z.17|default:""}}</td>
+	<td>{{z.18|default:""}}</td>
+	<td>{{z.19|default:""}}</td>
+	<td>{{z.20|default:""}}</td>
+	<td>{{z.21|default:""}}</td>
+	<td>{{z.22|default:""}}</td>
+	<td>{{z.23|default:""}}</td>
+	<td>{{z.24|default:""}}</td>
+	<td>{{z.25|default:""}}</td>
+	<td>{{z.26|default:""}}</td>
+	<td>{{z.27|default:""}}</td>
+	<td>{{z.28|default:""}}</td>
+	<td>{{z.29|default:""}}</td>
+	<td>{{z.30|default:""}}</td>
+	<td>{{z.31|default:""}}</td>
+	<td>{{z.32|default:""}}</td>
+	<td>{{z.33|default:""}}</td>
+	<td>{{z.34|default:""}}</td>
+	<td>{{z.35|default:""}}</td>
+	<td>{{z.36|default:""}}</td>
+	<td>{{z.37|default:""}}</td>
+	<td>{{z.38|default:""}}</td>
+      </tr>
+      {% endfor%} {% endif %}
+	 
+    </table>
+	</div>
+	 {% endif %}
+	 {% if blx == '7' %}
+	<div>
+	  开始时间:<input type="date" value='{{kssj}}' id="kssj" name="kssj"/>
+	  截止时间:<input type="date" value='{{jzsj}}' id="jzsj" name="jzsj" />
+	  组合：<select name="zh" id="zh">
+	  <option value={{zh}}>{{zh|default:""}}</option>	  
+	  {% for d in zhlist %}
+	  <option value={{d.0}}>{{d.0}}</option>
+	  {% endfor %}
+      </select>
+	  <button type="submit" onclick="MM_jumpMenu1('parent',this,0,7)"/>查询收益率
+     </div>
+	 <table class="table table-bordered table-hover table-condensed"> 
+	<tr  align="center"><td colspan=12 style="font-size:20px;">收益率分析表</td></tr>	 
+	 <tr>
+	   <th>序号</th>
+	    <th  >组合名称</th>
+	  <th >日期</th>
+        <th >组合1</th>
+        <th  >组合2</th>
+        <th  >组合3</th>
+        <th  >组合4</th>
+		<th  >合计</th>
+        <th >TA</th>
+		<th >TA金额</th>
+        <th >当日最新</th>
+        <th>收益率</th>
+      </tr>
+     <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+        <td>11</td>
+      <td>12</td>
+      </tr>
+	    
+      {% if sj %} {% for z in sj %}
+      <tr>
+	  <td>{{forloop.counter}}</td>
+	  <td>{{z.0|default:""}}</td>
+<td>{{z.1|default:""}}</td>
+<td>{{z.2|default:""}}</td>
+<td>{{z.3|default:""}}</td>
+<td>{{z.4|default:""}}</td>
+<td>{{z.5|default:""}}</td>
+<td>{{z.6|default:""}}</td>
+<td>{{z.7|default:"" }}</td>
+<td>{{z.8|default:""}}</td>
+<td>{{z.9|default:""}}</td>
+<td>{{z.10|default:""}}</td>
+      </tr>
+      {% endfor%} 
+	 	{% endif %}
+    </table>
+	 {% endif %}
+<div class="pagination">
+<div id="links">
+    <span class="step-links">
+	{% if sj.has_previous %}
+	    <a href="?blx={{blx}}&rq={{rq}}&zh={{zh}}&page={{ sj.previous_page_number }}">上一页</a>
+	{% endif %}
+ 
+	<span class="current">
+	    Page {{ sj.number }} of {{ sj.paginator.num_pages }}.
+	</span>
+ 
+	{% if sj.has_next %}
+	    <a href="?blx={{blx}}&rq={{rq}}&zh={{zh}}&page={{ sj.next_page_number }}">下一页</a>
+	{% endif %}
+	
+    </span>
+    </div>
+</div>
+<div id="posbottom"></div>
+  </div>
+</div>
+{% endblock %} 

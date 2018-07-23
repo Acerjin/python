@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/javascript" src="https://cdn.bootcss.com/jquery/1.10.1/jquery.min.js"></script>
+  <script type="text/javascript" src="http://cdn.staticfile.org/webuploader/0.1.0/webuploader.min.js"></script>
+    <title>Upload Files using XMLHttpRequest - Minimal</title>
+    <script type="text/javascript">
+        function fileSelected() {
+            var file = document.getElementById('fileToUpload').files[0];
+            if (file) {
+                var fileSize = 0;
+                if (file.size > 1024 * 1024)
+                    fileSize = (Math.round(file.size * 100 / (1024 * 1024)) / 100).toString() + 'MB';
+                else
+                    fileSize = (Math.round(file.size * 100 / 1024) / 100).toString() + 'KB';
+                document.getElementById('fileName').innerHTML = 'Name: ' + file.name;
+                document.getElementById('fileSize').innerHTML = 'Size: ' + fileSize;
+                document.getElementById('fileType').innerHTML = 'Type: ' + file.type;
+            }
+        }
+        function uploadFile() {
+            var fd = new FormData();
+            // alert (document.getElementById('fileToUpload').files.length);
+            filescount = document.getElementById('fileToUpload').files.length;
+            var xhr = new XMLHttpRequest();
+            for (i=0;i<filescount;i++)
+            {fd.append(i,document.getElementById('fileToUpload').files[i]);
+                   }
+            xhr.upload.addEventListener("progress", uploadProgress, false);
+            xhr.addEventListener("load", uploadComplete, false);
+            xhr.addEventListener("error", uploadFailed, false);
+            xhr.addEventListener("abort", uploadCanceled, false);
+            xhr.open("POST", "/uploadfile/");//修改成自己的接口
+            xhr.send(fd);
+            
+        }
+
+        function uploadProgress(evt) {
+            if (evt.lengthComputable) {
+                var percentComplete = Math.round(evt.loaded * 100 / evt.total);
+                document.getElementById('progressNumber').innerHTML = percentComplete.toString() + '%';
+            }
+            else {
+                document.getElementById('progressNumber').innerHTML = 'unable to compute';
+            }
+        }
+        function uploadComplete(evt) {
+            /* 服务器端返回响应时候触发event事件*/
+            // alert(evt.target.responseText);、
+            document.getElementById('progressNumber').innerHTML+='上传成功！';
+        }
+        function uploadFailed(evt) {
+            alert("There was an error attempting to upload the file.");
+        }
+        function uploadCanceled(evt) {
+            alert("The upload has been canceled by the user or the browser dropped the connection.");
+        }
+    </script>
+</head>
+<body>
+<form id="form1" enctype="multipart/form-data" method="post" action="Upload.html">
+    <div class="row">
+        <label for="fileToUpload">多个文件单一进度</label><br />
+        <input type="file" multiple="true" name="fileToUpload" id="fileToUpload" onchange="fileSelected();"/>
+    </div>
+    <div id="fileName"></div>
+    <div id="fileSize"></div>
+    <div id="fileType"></div>
+    <div class="row">
+        <input type="button" onclick="uploadFile()" value="Upload" />
+    </div>
+    <div id="progressNumber"></div>
+
+</form>
+
+
+<!-- webuploader-->
+<div id="uploader" class="wu-example">
+    <!--用来存放文件信息-->
+    <div id="thelist" class="uploader-list"></div>
+    <div class="btns">
+        <div id="picker0" data-ids="picker" >选择文件</div>
+        <div id="picker1" style="display:" >上传文件</div>
+    </div>
+</div>
+<div><a href="/uploadfile/">link</a></div>
+
+<span style="font-size: 14px;">
+    <script type="text/javascript">
+        $(function () {
+            var uploader;
+            Size = 0;
+            uploader= aa("0");
+        });
+
+        function aa(i) {
+            /*init webuploader*/
+            $list = $("#thelist"); 
+             uploader = WebUploader.create({
+                auto: true,
+                // swf文件路径
+                swf: '/Scripts/1/Uploader.swf',
+
+                // 文件接收服务端。
+                server: '\\uploadfile\\',
+
+                // 选择文件的按钮。可选。
+                // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                pick: {
+                    id: '#picker'+i,
+                    //只能选择一个文件上传
+                    //multiple: false
+                },
+                fileSingleSizeLimit: 100 * 1024 * 1024,   //设定单个文件大小
+                //限制只能上传一个文件
+                //fileNumLimit: 1,
+
+                // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+                resize: false,
+                chunked: true,//分片上传-大文件的时候分片上传，默认false
+                chunkSize: 500 * 1024,
+         })
+         
+            // 当有文件被添加进队列的时候
+         uploader.on('fileQueued', function (file) {
+             
+             // 判断当前上传文件的格式
+             if (uploader.getFiles()[uploader.getFiles().length - 1].ext.toLowerCase() != "docx" && uploader.getFiles()[uploader.getFiles().length - 1].ext.toLowerCase() != "doc" && uploader.getFiles()[uploader.getFiles().length - 1].ext.toLowerCase() != "xlsx" && uploader.getFiles()[uploader.getFiles().length - 1].ext.toLowerCase() != "xls" && uploader.getFiles()[uploader.getFiles().length - 1].ext.toLowerCase() != "pptx" && uploader.getFiles()[uploader.getFiles().length - 1].ext.toLowerCase() != "ppt" && uploader.getFiles()[uploader.getFiles().length - 1].ext.toLowerCase() != "mp4" && uploader.getFiles()[uploader.getFiles().length - 1].ext.toLowerCase() != "swf" && uploader.getFiles()[uploader.getFiles().length - 1].ext.toLowerCase() != "pdf" && uploader.getFiles()[uploader.getFiles().length - 1].ext.toLowerCase() != "jpg" && uploader.getFiles()[uploader.getFiles().length - 1].ext.toLowerCase() != "png"
+               && uploader.getFiles()[uploader.getFiles().length - 1].ext.toLowerCase() != "exe") {
+                 alert("上传格式不正确！");
+             }
+             else {
+               
+                 var $li = $('#WU_FILE_' + i),
+               
+                  $percent = $li.find('.info');
+                 if (!$percent.length) {
+                    
+                     $list.append('<div id="WU_FILE_' + i + '" class="item">' +
+                      '<h4 class="info">' + file.name + '</h4>' +
+                      '<p class="state">等待上传...</p>' +
+                     ' <span id="iid' + i + '"></span><span id="all' + i + '"></span></div>');
+
+                 }
+
+                 else {
+                     var $lii = $('#WU_FILE_' + i);//修改已上传的
+                     $lii.html('<div id="WU_FILE_' + i + '" class="item">' +
+                    '<h4 class="info">' + file.name + '</h4>' +
+                    '<p class="state">等待上传...</p>' +
+                   '<span id="iid' + i + '"></span><span id="all' + i + '"></span></div>');
+
+                 }
+             }
+
+         });
+
+
+            // 文件上传过程中创建进度条实时显示。
+         uploader.on('uploadProgress', function (file, percentage) {
+              $li = $('#WU_FILE_' + i),
+              $percent = $li.find('.progress .progress-bar');
+
+             // 避免重复创建---进度条
+             if (!$percent.length) {
+                 $percent = $('<div class="progress ctive">' +
+                  '<div class="progress-bar" role="progressbar" style="width: 0%">' +
+                  '</div>' +
+                 '</div>').appendTo($li).find('.progress-bar');
+             }
+
+             $li.find('p.state').text('上传中');
+             $percent.css('width', percentage * 100 + '%');//进度条
+             //上传期间所上传占总的比例
+             var nowSize = 0;//已上传大小
+             var gb = Math.pow(1024, 3);
+             var mb = Math.pow(1024, 2);
+             var kb = 1024;
+             var fileSize = uploader.getFiles()[uploader.getFiles().length - 1].size;//总大小
+             if (fileSize >= gb) {
+                 var fz = (fileSize / gb).toFixed(2);
+                 Size = fz + "GB";
+                 nowSize = (fz * percentage).toFixed(2) + "GB";
+             }
+             else if (fileSize >= mb) {
+                 var fz = (fileSize / mb).toFixed(2);
+                 Size = fz + "MB";
+                 nowSize = (fz * percentage).toFixed(2) + "MB";
+             }
+             else if (fileSize >= kb) {
+                 var fz = (fileSize / kb).toFixed(2);
+                 Size = fz + "KB";
+                 nowSize = (fz * percentage).toFixed(2) + "KB";
+             }
+             else {
+                 var fz = fileSize;
+                 Size = fz + "B";
+                 nowSize = fz * percentage + "B";
+             }
+             //var iidSize = nowSize / Size;
+             $("#iid" + i).html((percentage*100).toFixed(2)+"%");//已上传比例
+             $("#all" + i).html("总大小：" + Size);//总大小
+
+         });
+         uploader.on('uploadSuccess', function (file, response) {
+             //console.log(response._raw);
+             $('#WU_FILE_' + i).find('p.state').text('已完成');
+             //uploader.removeFile(file);//删除
+             //uploader.reset();
+         });
+
+         uploader.on('uploadError', function (file) {
+             $('#WU_FILE_' + i).find('p.state').text('上传出错');
+         });
+
+         uploader.on('uploadComplete', function (file) {
+             //$('#' + file.id).find('.progress').fadeOut();//删除进度条
+         });
+
+            /**
+* 验证文件格式以及文件大小
+*/
+         uploader.on("error", function (type) {
+
+             if (type == "F_EXCEED_SIZE") {
+                 alert("文件大小不能超过100M");
+             }
+             else {
+                 alert("上传出错！请检查后重新上传！错误代码" + type);
+             }
+         });
+             return uploader;
+        }
+        function bbb(i) {
+            $("#picker1").show();
+            uploader= aa(i);
+        }
+    </script>
+</span>
+</body>
+</html>

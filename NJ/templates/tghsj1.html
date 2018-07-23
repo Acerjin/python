@@ -1,0 +1,118 @@
+{% extends 'base.html'%} {% block content %}
+<!-- Content -->
+<script type="text/JavaScript">
+function MM_jumpMenu(targ,selObj,restore,blx){ //v3.0
+  eval(targ+".location='"+'?blx='+blx+'&rq='+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+
+function MM_jumpMenu1(targ,selObj,restore,blx){ //v3.0
+  
+  var rq='';
+  var rq2='';
+  var zh='';
+  rq = document.getElementById('rq').value;
+  //rq1 = document.getElementById("kssj").value;
+  //rq2 = document.getElementById("jzsj").value;
+  zh = document.getElementById("zh").value;
+  eval(targ+".location='"+'?blx='+blx+'&rq='+rq+'&rq1='+'&rq2='+'&zh='+zh+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+function onclicktest(blx)
+{
+  var xmlhttp;
+  if (window.XMLHttpRequest)
+  {
+    // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+    xmlhttp=new XMLHttpRequest();
+  }
+  else
+  {
+    // IE6, IE5 浏览器执行代码
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp.onreadystatechange=function()
+  {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+      tab = document.getElementById('tghsj');
+      alert(xmlhttp.responseText)
+    tab.tBodies[0].innerHTML=xmlhttp.responseText;
+    document.getElementById("prepage").innerHTML = test
+	
+    }
+  }
+  rq = document.getElementById('rq').value;
+  zh = document.getElementById("zh").value;
+  xmlhttp.open("GET","/tghsj_ajax/?blx="+blx+"&rq="+rq+"&zh="+zh,true);
+  xmlhttp.send();
+}
+</script> 
+<div id="content" class="flex">
+  <div  >
+      {% if blx == '1' %}
+	   <table class="table table-bordered table-hover table-condensed" id='tghsj'>
+      <thead>
+	  <tr align="center"><td colspan=9 style="font-size:20px;">资产情况表</td><td><a id="export_link" href='/export_link/?blx={{blx}}&rq={{rq}}&zh={{zh}}'>导出文件</a></td></tr>
+	  <tr>
+	  <th >序号</th>
+       <TH><select id="rq" onChange="onclicktest({{blx}})"><option>{{rq}}</option><option>ALL</option>{% for x in rqlist%}<option value="{{x.0}}">{{x.0}}</option>{% endfor%}</select></TH>
+        <th>投资组合代码</th>
+        <th><select id="zh" onChange="onclicktest({{blx}})"><option>{{zh}}</option><option>ALL</option>{% for z in zhlist%}<option value="{{z.0}}">{{z.0}}</option>{% endfor%}</select></th>
+        <th>单位净值</th>
+        <th>受托资产净值</th>
+        <th>资产份额</th>
+        <th>委托金额</th>
+        <th>净收益</th>
+        <th>导入日期</th>
+      </tr>
+       <tr>
+	   <td>1</td>
+	   <td>2</td>
+	   <td>3</td>
+	   <td>4</td>
+	   <td>5</td>
+	   <td>6</td>
+	   <td>7</td>
+	   <td>8</td>
+	   <td>9</td>
+	   <td>10</td>
+	   </tr>
+	    </thead>
+
+      {% if sj %} {% for x in sj %}
+      <tr>
+	  <td>{{forloop.counter}}</td>
+        <td>{{x.0|default:""}}</td>
+        <td>{{x.1|default:""}}</td>
+        <td>{{x.2|default:""}}</td>
+        <td>{{x.3|default:""}}</td>
+        <td>{{x.4|default:""}}</td>
+        <td>{{x.5|default:""}}</td>
+        <td>{{x.6|default:""}}</td>
+        <td>{{x.7|default:""}}</td>
+        <td>{{x.8|default:""}}</td>
+      </tr>
+      {% endfor%} 
+	  {% endif %}
+ </table>
+	{% endif %}
+</div>
+
+</div>
+<div class="pagination">
+<div id="links">
+  <span>每页显示<select><option>50</option><option>100</option><option>150</option><option>200</option><option>250</option><option>500</option></select>条</span>
+    <span class="step-links" id="prepage">
+	    <a>上一页</a>
+
+	    <a >下一页</a>
+
+	
+    </span>
+    </div>
+</div>
+
+
+</div>
+{% endblock %} 
